@@ -1,5 +1,6 @@
 package br.com.zupacademy.marcio.transacao.transacao.commons.errors;
 
+import br.com.zupacademy.marcio.transacao.transacao.commons.errors.exceptions.CartaoNaoExisteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -47,4 +48,14 @@ public class ErroDeValidacaoHandler {
         ErroDeFormularioDto erroDeFormularioDto = new ErroDeFormularioDto(fieldDescription,errorDescription);
         return new ResponseEntity<>(erroDeFormularioDto, new HttpHeaders(),HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(value = {CartaoNaoExisteException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErroDeFormularioDto HandleCartaoNaoExisteException(CartaoNaoExisteException e, WebRequest request){
+
+        ErroDeFormularioDto erroDeFormularioDto = new ErroDeFormularioDto("No. Cartão", "Não existe movimentações para esse cartão !");
+
+        return erroDeFormularioDto;
+    }
+
 }

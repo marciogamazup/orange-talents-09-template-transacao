@@ -7,7 +7,7 @@ import br.com.zupacademy.marcio.transacao.transacao.entities.Transacao;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class TransacaoDto {
+public class ListaUltimasComprasDto {
 
     private String id;
     private BigDecimal valor;
@@ -16,13 +16,14 @@ public class TransacaoDto {
     private Estabelecimento estabelecimento;
 
     @Deprecated
-    public TransacaoDto() {
+    public ListaUltimasComprasDto() {
     }
-    public TransacaoDto(TransacaoDto entity) {
-        this.id = entity.getId();
+
+    public ListaUltimasComprasDto(Transacao entity) {
+        this.id = entity.getIdTransacao();
         this.valor = entity.getValor();
         this.efetivadaEm = entity.getEfetivadaEm();
-        this.cartao= entity.getCartao();
+        this.cartao = entity.getCartao();
         this.estabelecimento = entity.getEstabelecimento();
     }
 
@@ -45,9 +46,4 @@ public class TransacaoDto {
     public Estabelecimento getEstabelecimento() {
         return estabelecimento;
     }
-
-    public Transacao toModel() {
-        return new Transacao(this.id, this.valor, this.efetivadaEm, this.cartao, this.estabelecimento);
-    }
-
 }
